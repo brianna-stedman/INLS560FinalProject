@@ -3,56 +3,57 @@
 import csv                          ### importing necessary modules
 import re
 import collections
-import Helpers
+import Helpers ### This is where I put my helper functions. See Helpers.py
 
 
 
      
-while True:
+while True: ### this while loop will allow the user to cycle through the options below without having to run the program over.
     print("")
     print("Campaign csv files:  1. 2008. 2. 2010 3. 2012 4. 2014 5.2016")
     user_csv_choice = int(input("To work with a campaign csv file from a certain year, input one of the option numbers above (1-5): "))      ### letting the user pick a csv file based off of what year they want to look at.
 
     try: ### setting user_csv_choice to a particular .csv file.
         if user_csv_choice == 1:
-            csv_file = "CandidateSummary2008.csv"
+            csv_file = "CandidateSummary2008.csv"                                ### each conditional in this loop is built to set csv_file to a certain CampaignSummary year.
             print("You are now working with data from the 2008 campaign.")
-            #break
+            
         elif user_csv_choice == 2:
             csv_file = "CandidateSummary2010.csv"
             print("You are now working with data from the 2010 campaign.")
-            #break
+            
         elif user_csv_choice == 3:
             csv_file = "CandidateSummary2012.csv"
             print("You are now working with data from the 2012 campaign.")
-            #break
+            
         elif user_csv_choice == 4:
             csv_file = "CandidateSummary2014.csv"
             print("You are now working with data from the 2014 campaign.")
-            #break
+            
         elif user_csv_choice == 5:
             csv_file = "CandidateSummary2016.csv"
             print("You are now working with data from the 2016 campaign.")
             #break
     except:
-        print("Invalid csv choice. Please choose a number 1-5.")
+        print("Invalid csv choice. Please choose a number 1-5.")   ### if the user doesn't pick one through 5, they get this error message are allowed to pick again.
         continue
     
-    while True:
+    while True: ### opening the file that the user chose. 
         with open(csv_file) as f:
             reader = csv.DictReader(f)
         
         
-            user_first_option = int(input("Please pick from this first tier of options: 1. Find a Candidate 2. General Candidate Data by State 3. Help 4. Leave : "))
+            # user_first_option = int(input("Please pick from this first tier of options: 1. Find a Candidate 2. General Candidate Data by State 3. Help 4. Leave : "))
             
             try:
+                user_first_option = int(input("Please pick from this first tier of options: 1. Find a Candidate 2. General Candidate Data by State 3. Help 4. Choose Another Year. : "))
                 if user_first_option == 1:
-                    Helpers.search_candidate(reader)
+                    Helpers.search_candidate(reader) ### see Helpers.py for comments on this function
                     continue
                 elif user_first_option == 2:
-                    Helpers.candidate_by_state(reader)
+                    Helpers.candidate_by_state(reader) ### see Helpers.py for comments on this function
                     continue
-                elif user_first_option == 3: 
+                elif user_first_option == 3: ### help screen option
                     print("")
                     print("BEGINNING OF HELP SCREEN(scroll down to see more)")
                     print("")
@@ -85,12 +86,11 @@ while True:
                     print("END OF HELP")
                     print("")
                     continue 
-                elif user_first_option == 4:
+                elif user_first_option == 4: ### exit and choose another csv file to work with. 
                     break
-            except:
-                ("Invalid Input. Please press 1, 2, 3, or 4.")
-                break
-            continue 
+            except ValueError:     ### if the user selects an invalid option, or inputs a string by accident, then it gives the user another chance to select a valid input. 
+                print("Invalid Input. Please press 1, 2, 3, or 4.")
+                continue 
     
     
 
